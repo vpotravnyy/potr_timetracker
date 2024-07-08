@@ -5,7 +5,7 @@ import type { Random } from "unsplash-js/dist/methods/photos/types";
 import { cn } from "~/lib/utils";
 
 const patchedFetch = (input: RequestInfo | URL, options?: RequestInit) =>
-	fetch(input, { next: { revalidate: 60 }, ...(options || {}) });
+	fetch(input, { next: { revalidate: 60 }, ...(options ?? {}) });
 
 export async function getImage() {
 	const unsplash = createApi({
