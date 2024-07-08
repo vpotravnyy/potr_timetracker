@@ -1,9 +1,16 @@
 import "~/styles/globals.css";
 
-import { GeistSans } from "geist/font/sans";
 import type { Metadata, Viewport } from "next";
+import { Inter as FontSans } from "next/font/google"
+import { cn } from "~/lib/utils"
 
 import { TRPCReactProvider } from "~/trpc/react";
+
+const fontSans = FontSans({
+  subsets: ["latin", "cyrillic"],
+  variable: "--font-sans",
+})
+
 export const metadata = {
   title: "Учет времени",
   description: "Time Tracker app to track time of employees of Potravnyi family",
@@ -57,8 +64,11 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable}`}>
-      <body>
+    <html lang="ru">
+      <body className={cn(
+        "min-h-screen bg-background font-sans antialiased",
+        fontSans.variable
+      )}>
         <TRPCReactProvider>{children}</TRPCReactProvider>
       </body>
     </html>

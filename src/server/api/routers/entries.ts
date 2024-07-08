@@ -16,7 +16,6 @@ export const entriesRouter = createTRPCRouter({
 	create: publicProcedure
 		.input(z.object({ start: z.date() }))
 		.mutation(async ({ ctx, input }) => {
-			console.log("Crate!!!", input);
 			const lastOpenEntry = await ctx.db.query.entries.findFirst({
 				orderBy: (entries, { desc }) => [desc(entries.start)],
 				where: (entries, { isNull }) => isNull(entries.end),
@@ -46,7 +45,6 @@ export const entriesRouter = createTRPCRouter({
 				),
 		)
 		.mutation(async ({ ctx, input }) => {
-			console.log("Mutation!!!", input);
 			return await ctx.db
 				.update(entries)
 				.set(input)
