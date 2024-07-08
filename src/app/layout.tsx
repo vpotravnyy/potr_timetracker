@@ -5,7 +5,7 @@ import type { Metadata, Viewport } from "next";
 
 import { TRPCReactProvider } from "~/trpc/react";
 export const metadata = {
-  title: "Time Tracker",
+  title: "Учет времени",
   description: "Time Tracker app to track time of employees of Potravnyi family",
   generator: "Next.js",
   applicationName: "potr-timetracker",
@@ -29,7 +29,7 @@ export const metadata = {
   },
   manifest: "/site.webmanifest",
   appleWebApp: {
-    title: "Time Tracker",
+    title: "Учет времени",
     statusBarStyle: "black-translucent",
     startupImage: ["/android-chrome-512x512.png"],
   },

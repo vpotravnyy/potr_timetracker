@@ -1,6 +1,6 @@
 {
-    "name": "Time Tracker",
-    "short_name": "Time Tracker",
+    "name": "Учет времени",
+    "short_name": "Учет времени",
     "icons": [
         {
             "src": "android-chrome-192x192.png",
