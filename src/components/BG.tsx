@@ -25,7 +25,7 @@ export function BG({ className, children }: TBGProps) {
 		<div
 			className={cn(
 				className,
-				"bg-cover bg-center bg-no-repeat flex flex-col justify-items-center gap-8 text-center pt-24",
+				"bg-cover bg-center bg-no-repeat flex flex-col justify-items-center gap-2 text-center pt-24",
 			)}
 			style={{
 				backgroundImage,
@@ -44,6 +44,18 @@ export function BG({ className, children }: TBGProps) {
 					month: "long",
 				})}
 			</h1>
+			<h2
+				className="text-2xl font-semibold capitalize text-slate-100"
+				style={{
+					textShadow:
+						"0px 0px 2px #000,0px 0px 2px #000,0px 0px 2px #000,0px 0px 2px #000,0px 1px 5px #000,0px 1px 5px #000",
+				}}
+			>
+				{new Date().toLocaleString("ru", {
+					hour: "numeric",
+					minute: "numeric",
+				})}
+			</h2>
 			{children}
 		</div>
 	);

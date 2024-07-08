@@ -1,6 +1,7 @@
 "use server";
 import "server-only";
 import { eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 import { db } from "~/server/db";
 import { entries } from "~/server/db/schema";
 
@@ -12,9 +13,12 @@ export async function create(start: Date) {
 	if (lastOpenEntry)
 		throw new Error("Cannot create new entry while old entry is still open");
 
-	return await db.insert(entries).values({ start });
+	await db.insert(entries).values({ start });
+	revalidatePath("/");
 }
 
 export async function finish(id: number, end: Date) {
-	return await db.update(entries).set({ id, end }).where(eq(entries.id, id));
+	console.log("In finish");
+	await db.update(entries).set({ id, end }).where(eq(entries.id, id));
+	revalidatePath("/");
 }

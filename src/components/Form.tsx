@@ -2,7 +2,7 @@
 import { Loader2 } from "lucide-react";
 import { revalidatePath } from "next/cache";
 import { useState, useTransition } from "react";
-import { cn } from "~/lib/utils";
+import { cn, formatRelativeTime } from "~/lib/utils";
 import { create, finish } from "~/server/actions/entries";
 import type { TEntry } from "~/server/db/schema";
 import { Button } from "./ui/button";
@@ -20,11 +20,11 @@ export function Form({ entry, onSubmit, button }: TFormProps) {
 			minute: "2-digit",
 		}),
 	);
+	const [hours, minutes] = time.split(":");
 	const [isPending, startTransition] = useTransition();
 
 	async function handleSubmit() {
 		startTransition(async () => {
-			const [hours, minutes] = time.split(":");
 			const today = new Date();
 			today.setHours(Number(hours));
 			today.setMinutes(Number(minutes));
@@ -36,6 +36,16 @@ export function Form({ entry, onSubmit, button }: TFormProps) {
 	return (
 		<form action={handleSubmit}>
 			<div className="flex flex-col gap-4">
+				{entry && (
+					<div className="text-left">
+						День начался в{" "}
+						{entry.start.toLocaleString("ru", {
+							hour: "numeric",
+							minute: "2-digit",
+						})}{" "}
+						<span className="text-sm">({formatRelativeTime(entry.start)})</span>
+					</div>
+				)}
 				<div className="flex flex-row justify-between">
 					<Input
 						type="time"
@@ -62,10 +72,7 @@ export function Form({ entry, onSubmit, button }: TFormProps) {
 export function CheckInForm() {
 	return (
 		<Form
-			onSubmit={async (time) => {
-				await create(time);
-				revalidatePath("/");
-			}}
+			onSubmit={(time) => create(time)}
 			button={{
 				text: "Начать",
 				className: "bg-green-700",
@@ -78,10 +85,7 @@ export function CheckOutForm({ entry }: { entry: TEntry }) {
 	return (
 		<Form
 			entry={entry}
-			onSubmit={async (time) => {
-				await finish(entry.id, time);
-				revalidatePath("/");
-			}}
+			onSubmit={(time) => finish(entry.id, time)}
 			button={{
 				text: "Закончить",
 				className: "bg-red-700",
