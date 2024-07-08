@@ -27,7 +27,7 @@ export const metadata = {
       url: "/apple-touch-icon-180x180-precomposed.png",
     },
   },
-  manifest: "/manifest.json",
+  manifest: "/site.webmanifest",
   appleWebApp: {
     title: "Time Tracker",
     statusBarStyle: "black-translucent",
