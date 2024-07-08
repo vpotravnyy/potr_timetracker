@@ -41,7 +41,7 @@ export const entriesRouter = createTRPCRouter({
 				})
 				.partial({ start: true, end: true })
 				.refine(
-					(data) => data.start || data.end,
+					(data) => data.start ?? data.end,
 					"Either start or end should be filled in.",
 				),
 		)
