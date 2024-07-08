@@ -1,8 +1,9 @@
 "use client";
 import { Loader2 } from "lucide-react";
+import { revalidatePath } from "next/cache";
 import { useState, useTransition } from "react";
-import { create, finish } from "~/actions/entries";
 import { cn } from "~/lib/utils";
+import { create, finish } from "~/server/actions/entries";
 import type { TEntry } from "~/server/db/schema";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -61,7 +62,10 @@ export function Form({ entry, onSubmit, button }: TFormProps) {
 export function CheckInForm() {
 	return (
 		<Form
-			onSubmit={(time) => create(time)}
+			onSubmit={async (time) => {
+				await create(time);
+				revalidatePath("/");
+			}}
 			button={{
 				text: "Начать",
 				className: "bg-green-700",
@@ -74,7 +78,10 @@ export function CheckOutForm({ entry }: { entry: TEntry }) {
 	return (
 		<Form
 			entry={entry}
-			onSubmit={(time) => finish(entry.id, time)}
+			onSubmit={async (time) => {
+				await finish(entry.id, time);
+				revalidatePath("/");
+			}}
 			button={{
 				text: "Закончить",
 				className: "bg-red-700",
