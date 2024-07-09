@@ -34,7 +34,10 @@ export function Form({ entry, onSubmit, button }: TFormProps) {
 	}
 
 	return (
-		<form action={handleSubmit}>
+		<form
+			action={handleSubmit}
+			className="p-6 bg-slate-100 rounded-t-xl border-b border-slate-300"
+		>
 			<div className="flex flex-col gap-4">
 				{entry && (
 					<div className="text-left">

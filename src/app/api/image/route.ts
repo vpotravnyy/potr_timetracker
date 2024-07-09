@@ -1,12 +1,14 @@
+import "server-only";
 import { createApi } from "unsplash-js";
 import type { Random } from "unsplash-js/dist/methods/photos/types";
+import { env } from "~/env";
 
 const patchedFetch = (input: RequestInfo | URL, options?: RequestInit) =>
 	fetch(input, { next: { revalidate: 1800 }, ...(options ?? {}) });
 
 export async function GET() {
 	const unsplash = createApi({
-		accessKey: "55DwZEdVpIVRdS5bnTulRGktCwfVSBjK6Omc7r1SkBo",
+		accessKey: env.UNSTASH_API_KEY,
 		fetch: patchedFetch,
 	});
 

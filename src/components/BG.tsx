@@ -4,7 +4,7 @@ import {
 	QueryClientProvider,
 	useQuery,
 } from "@tanstack/react-query";
-import type { ReactNode } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 import type { Random } from "unsplash-js/dist/methods/photos/types";
 import { cn } from "~/lib/utils";
 
@@ -21,41 +21,49 @@ export function BG({ className, children }: TBGProps) {
 	if (image) {
 		backgroundImage = `url(${image.urls.regular}), url(${image.urls.small}), url(${image.urls.thumb})`;
 	}
+
 	return (
 		<div
 			className={cn(
 				className,
-				"bg-cover bg-center bg-no-repeat flex flex-col justify-items-center gap-2 text-center pt-24",
+				"h-screen overflow-y-scroll bg-cover bg-center bg-no-repeat bg-fixed relative",
 			)}
 			style={{
 				backgroundImage,
 				boxShadow: "inset 0 0 30px 0px rgba(0,0,0,0.5)",
+				perspective: 1,
 			}}
 		>
-			<h1
-				className="text-5xl font-semibold capitalize text-slate-100"
-				style={{
-					textShadow:
-						"0px 0px 2px #000,0px 0px 2px #000,0px 0px 2px #000,0px 0px 2px #000,0px 1px 5px #000,0px 1px 5px #000",
-				}}
+			<div
+				className="w-full flex flex-col justify-items-center gap-2 text-center absolute"
+				style={{ transform: "translate3d(0px, -600%, -3px) scale(4)" }}
 			>
-				{new Date().toLocaleDateString("ru", {
-					day: "numeric",
-					month: "long",
-				})}
-			</h1>
-			<h2
-				className="text-2xl font-semibold capitalize text-slate-100"
-				style={{
-					textShadow:
-						"0px 0px 2px #000,0px 0px 2px #000,0px 0px 2px #000,0px 0px 2px #000,0px 1px 5px #000,0px 1px 5px #000",
-				}}
-			>
-				{new Date().toLocaleString("ru", {
-					hour: "numeric",
-					minute: "numeric",
-				})}
-			</h2>
+				<h1
+					className="text-5xl font-semibold capitalize text-slate-100"
+					style={{
+						textShadow:
+							"0px 0px 2px #000,0px 0px 2px #000,0px 0px 2px #000,0px 0px 2px #000,0px 1px 5px #000,0px 1px 5px #000",
+					}}
+				>
+					{new Date().toLocaleDateString("ru", {
+						day: "numeric",
+						month: "long",
+					})}
+				</h1>
+				<h2
+					className="text-2xl font-semibold capitalize text-slate-100"
+					style={{
+						textShadow:
+							"0px 0px 2px #000,0px 0px 2px #000,0px 0px 2px #000,0px 0px 2px #000,0px 1px 5px #000,0px 1px 5px #000",
+					}}
+				>
+					{new Date().toLocaleString("ru", {
+						hour: "numeric",
+						minute: "numeric",
+					})}
+				</h2>
+			</div>
+
 			{children}
 		</div>
 	);

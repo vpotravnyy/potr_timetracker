@@ -65,7 +65,7 @@ export default function RootLayout({
 		<html lang="ru">
 			<body
 				className={cn(
-					"min-h-screen bg-background font-sans antialiased",
+					"h-screen overflow-hidden bg-background font-sans antialiased",
 					fontSans.variable,
 				)}
 			>

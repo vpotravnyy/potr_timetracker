@@ -8,11 +8,13 @@ export default async function Home() {
 	const openEntries = entries.filter((entry) => !entry.end);
 	const closedEntries = entries.filter((entry) => entry.end);
 
+	const formHeight = openEntries.length ? 136 : 96;
+
 	return (
 		<BG className="flex h-screen min-h-screen relative bg-cyan-600">
 			<div
-				className="bg-slate-100 absolute bottom-0 left-0 right-0 rounded-t-xl p-6"
-				style={{ boxShadow: "0 0 15px 5px #000" }}
+				className="w-full z-10"
+				style={{ marginTop: `calc(100vh - ${formHeight}px)` }}
 			>
 				{!openEntries.length && <CheckInForm />}
 				{openEntries.map((entry) => (

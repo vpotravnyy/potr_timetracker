@@ -41,3 +41,21 @@ export function formatRelativeTime(createTime: Date) {
 	}
 	return relativeDateFormat.format(diff / 1000, "second");
 }
+
+import { startOfWeek } from "date-fns";
+
+export function chunkEventsByWeek<T extends { start: Date }>(
+	events: T[],
+): Record<string, T[]> {
+	const eventsByWeek = {} as Record<string, T[]>;
+	for (const event of events) {
+		const weekKey = startOfWeek(event.start).toISOString();
+
+		if (!eventsByWeek[weekKey]) {
+			eventsByWeek[weekKey] = [];
+		}
+		eventsByWeek[weekKey]?.push(event);
+	}
+
+	return eventsByWeek;
+}
