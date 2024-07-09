@@ -64,8 +64,10 @@ export function BG({ className, children }: TBGProps) {
 				backgroundImage,
 				boxShadow: "inset 0 0 30px 0px rgba(0,0,0,0.5)",
 				perspective: 1,
+				scrollSnapType: "y mandatory",
 			}}
 		>
+			<div style={{ scrollSnapAlign: "start" }} />
 			<div
 				className="w-full flex flex-col justify-items-center gap-2 text-center absolute"
 				style={{

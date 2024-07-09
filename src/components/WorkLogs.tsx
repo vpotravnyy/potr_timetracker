@@ -53,7 +53,7 @@ export default function WorkLogs({ entries }: { entries: TEntry[] }) {
 				);
 
 				return (
-					<div key={week}>
+					<div key={week} style={{ scrollSnapAlign: "start" }}>
 						<h3 className="text-xl mb-2">{weekTitle}</h3>
 						<Table className="bg-slate-50 mb-6">
 							<TableHeader>
