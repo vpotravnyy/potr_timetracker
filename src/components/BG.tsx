@@ -26,7 +26,7 @@ export function BG({ className, children }: TBGProps) {
 		<div
 			className={cn(
 				className,
-				"h-screen overflow-y-scroll bg-cover bg-center bg-no-repeat bg-fixed relative",
+				"h-screen overflow-y-scroll overscroll-y-none bg-cover bg-center bg-no-repeat bg-fixed relative",
 			)}
 			style={{
 				backgroundImage,
