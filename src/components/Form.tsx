@@ -1,6 +1,5 @@
 "use client";
 import { Loader2 } from "lucide-react";
-import { revalidatePath } from "next/cache";
 import { useState, useTransition } from "react";
 import { cn, formatRelativeTime } from "~/lib/utils";
 import { create, finish } from "~/server/actions/entries";

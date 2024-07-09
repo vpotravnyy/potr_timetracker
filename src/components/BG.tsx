@@ -4,7 +4,7 @@ import {
 	QueryClientProvider,
 	useQuery,
 } from "@tanstack/react-query";
-import { type ReactNode, useEffect, useRef, useState } from "react";
+import type { ReactNode } from "react";
 import type { Random } from "unsplash-js/dist/methods/photos/types";
 import { cn } from "~/lib/utils";
 
