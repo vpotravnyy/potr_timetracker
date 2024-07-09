@@ -48,6 +48,7 @@ export function BG({ className, children }: TBGProps) {
 					{new Date().toLocaleDateString("ru", {
 						day: "numeric",
 						month: "long",
+						timeZone: "America/Vancouver",
 					})}
 				</h1>
 				<h2
@@ -60,6 +61,7 @@ export function BG({ className, children }: TBGProps) {
 					{new Date().toLocaleString("ru", {
 						hour: "numeric",
 						minute: "numeric",
+						timeZone: "America/Vancouver",
 					})}
 				</h2>
 			</div>

@@ -69,17 +69,20 @@ export default function WorkLogs({ entries }: { entries: TEntry[] }) {
 													weekday: "short",
 													day: "numeric",
 													month: "short",
+													timeZone: "America/Vancouver",
 												})}
 											</TableCell>
 											<TableCell className="font-medium text-center text-nowrap">
 												{entry.start.toLocaleString("ru", {
 													hour: "numeric",
 													minute: "numeric",
+													timeZone: "America/Vancouver",
 												})}
 												{"-"}
 												{entry.end?.toLocaleString("ru", {
 													hour: "numeric",
 													minute: "numeric",
+													timeZone: "America/Vancouver",
 												})}{" "}
 												({hours}:{minutes})
 											</TableCell>

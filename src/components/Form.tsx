@@ -17,6 +17,7 @@ export function Form({ entry, onSubmit, button }: TFormProps) {
 		new Date().toLocaleString("ru", {
 			hour: "2-digit",
 			minute: "2-digit",
+			timeZone: "America/Vancouver",
 		}),
 	);
 	const [hours, minutes] = time.split(":");
@@ -44,6 +45,7 @@ export function Form({ entry, onSubmit, button }: TFormProps) {
 						{entry.start.toLocaleString("ru", {
 							hour: "numeric",
 							minute: "2-digit",
+							timeZone: "America/Vancouver",
 						})}{" "}
 						<span className="text-sm">({formatRelativeTime(entry.start)})</span>
 					</div>
