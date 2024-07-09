@@ -44,6 +44,10 @@ export default function WorkLogs({ entries }: { entries: TEntry[] }) {
 					0,
 				);
 
+				const weekEntriesSorted = weekEntries.sort(
+					(a, b) => a.start.getTime() - b.start.getTime(),
+				);
+
 				return (
 					<div key={week}>
 						<h3 className="text-xl mb-2">{weekTitle}</h3>
@@ -56,7 +60,7 @@ export default function WorkLogs({ entries }: { entries: TEntry[] }) {
 								</TableRow>
 							</TableHeader>
 							<TableBody className="text-xs">
-								{weekEntries.map((entry) => {
+								{weekEntriesSorted.map((entry) => {
 									const { hours, minutes, dollars } = calcDiff(entry);
 									return (
 										<TableRow key={entry.id}>
