@@ -49,7 +49,7 @@ export function chunkEventsByWeek<T extends { start: Date }>(
 ): Record<string, T[]> {
 	const eventsByWeek = {} as Record<string, T[]>;
 	for (const event of events) {
-		const weekKey = startOfWeek(event.start).toISOString();
+		const weekKey = startOfWeek(event.start, { weekStartsOn: 1 }).toISOString();
 
 		if (!eventsByWeek[weekKey]) {
 			eventsByWeek[weekKey] = [];

@@ -31,7 +31,7 @@ function calcDiff(entry: TEntry) {
 
 export default function WorkLogs({ entries }: { entries: TEntry[] }) {
 	const weeks = chunkEventsByWeek(entries);
-	const thisWeekStart = startOfWeek(new Date());
+	const thisWeekStart = startOfWeek(new Date(), { weekStartsOn: 1 });
 
 	return (
 		<div className="p-6 bg-slate-100 text-center">
