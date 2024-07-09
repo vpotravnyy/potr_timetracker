@@ -1,6 +1,6 @@
 "use client";
 import { Loader2 } from "lucide-react";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { cn, formatRelativeTime } from "~/lib/utils";
 import { create, finish } from "~/server/actions/entries";
 import type { TEntry } from "~/server/db/schema";
@@ -12,14 +12,18 @@ export type TFormProps = {
 	entry?: TEntry;
 	button: { className: string; text: string };
 };
+
+function getCurTime() {
+	return new Date().toLocaleString("ru", {
+		hour: "2-digit",
+		minute: "2-digit",
+		timeZone: "America/Vancouver",
+	});
+}
+
 export function Form({ entry, onSubmit, button }: TFormProps) {
-	const [time, setTime] = useState(
-		new Date().toLocaleString("ru", {
-			hour: "2-digit",
-			minute: "2-digit",
-			timeZone: "America/Vancouver",
-		}),
-	);
+	const [time, setTime] = useState(getCurTime());
+	const [touched, touch] = useState(false);
 	const [hours, minutes] = time.split(":");
 	const [isPending, startTransition] = useTransition();
 
@@ -32,6 +36,15 @@ export function Form({ entry, onSubmit, button }: TFormProps) {
 			await onSubmit(today);
 		});
 	}
+
+	useEffect(() => {
+		if (touched) return () => void 0;
+		const interval = setInterval(() => {
+			if (!touched) setTime(getCurTime());
+		}, 60 * 1000);
+
+		return () => clearInterval(interval);
+	}, [touched]);
 
 	return (
 		<form
@@ -56,7 +69,10 @@ export function Form({ entry, onSubmit, button }: TFormProps) {
 						name="time"
 						className="text-lg h-12 w-32 text-center timeInput bg-slate-50"
 						value={time}
-						onChange={(e) => setTime(() => e.target.value)}
+						onChange={(e) => {
+							touch(true);
+							setTime(() => e.target.value);
+						}}
 					/>
 					<Button
 						type="submit"
