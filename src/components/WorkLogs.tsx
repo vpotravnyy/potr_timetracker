@@ -1,3 +1,4 @@
+import { differenceInWeeks, startOfWeek } from "date-fns";
 import {
 	Table,
 	TableBody,
@@ -30,14 +31,17 @@ function calcDiff(entry: TEntry) {
 
 export default function WorkLogs({ entries }: { entries: TEntry[] }) {
 	const weeks = chunkEventsByWeek(entries);
+	const thisWeekStart = startOfWeek(new Date());
 
 	return (
 		<div className="p-6 bg-slate-100 text-center">
-			{Object.entries(weeks).map(([week, weekEntries], i) => {
-				let weekTitle = `Неделя от ${new Date(week).toLocaleDateString("ru", { day: "numeric", month: "short" })}`;
-				if (i === 0) weekTitle = "Эта неделя";
-				if (i === 1) weekTitle = "Прошлая неделя";
-				if (i === 2) weekTitle = "Позапрошлая неделя";
+			{Object.entries(weeks).map(([week, weekEntries]) => {
+				const weekStart = new Date(week);
+				let weekTitle = `Неделя от ${weekStart.toLocaleDateString("ru", { day: "numeric", month: "short" })}`;
+				const weeksAgo = differenceInWeeks(thisWeekStart, weekStart);
+				if (weeksAgo === 0) weekTitle = "Эта неделя";
+				if (weeksAgo === 1) weekTitle = "Прошлая неделя";
+				if (weeksAgo === 2) weekTitle = "Позапрошлая неделя";
 
 				const total = weekEntries.reduce(
 					(acc, entry) => acc + calcDiff(entry).dollars,
